@@ -1,4 +1,4 @@
-"""Stable Marriage solution using Gale-Shapley."""
+"""Stable Marriage Problem solution using Gale-Shapley."""
 import click
 from read_validate import get_smp
 from marriage import compute_smp
