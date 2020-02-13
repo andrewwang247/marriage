@@ -31,4 +31,4 @@ The program is split into logical chunks.
 
 ## Testing
 
-All static testing material is contained in the `Test` directory. The script `generator.py` uses `Test/female-names.txt` and `Test/male-names.txt` to generate valid json input for SMP, which it places in `Test/large_smp.json`. Note that `Test/small_smp.json` is also available as a more human-friendly test case.
+All static testing material is contained in the `Test` directory. The script `generator.py` (run without arguments) uses `Test/female-names.txt` and `Test/male-names.txt` to generate valid json input for SMP, which it places in `Test/large_smp.json`. Note that `Test/small_smp.json` is also available as a more human-friendly test case.
