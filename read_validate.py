@@ -81,6 +81,7 @@ def get_smp(filename):
     validate_smp_input(men_pref, women_pref)
     return men_pref, women_pref
 
+
 def get_srp(filename):
     """Read then validate srp input from filename."""
     rm_pref = read_srp(filename)

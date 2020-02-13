@@ -3,26 +3,11 @@ Solutions for the stable marriage and roommates problems.
 
 Uses Gale-Shapley for SMP and Irving for SRP.
 """
-from read_validate import get_smp, get_srp
 import click
-
-
-def compute_smp(men_pref, women_pref):
-    """
-    Compute a stable marriage on two preference lists.
-
-    This function uses the Gale–Shapley algorithm.
-    """
-    print('Computing stable marriages...')
-
-
-def compute_srp(rm_pref):
-    """
-    Compute a stable matching on a single preference list.
-
-    This function uses the Irving algorithm.
-    """
-    print('Computing stable roommates match...')
+from read_validate import get_smp, get_srp
+from marriage import compute_smp
+from roommate import compute_srp
+from write import print_smp_results
 
 
 @click.command()
@@ -38,7 +23,8 @@ def main(algorithm, input, output):
     """Execute smp or srp algorithm on input and print results to output."""
     if algorithm == 'smp':
         men_pref, women_pref = get_smp(input)
-        compute_smp(men_pref, women_pref)
+        men_engage, women_engage = compute_smp(men_pref, women_pref)
+        print_smp_results(men_engage, women_engage, output)
     elif algorithm == 'srp':
         rm_pref = get_srp(input)
         compute_srp(rm_pref)
