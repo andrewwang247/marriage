@@ -28,7 +28,7 @@ def propose(man, woman, women_pref, men_engage, women_engage):
 
 
 def match_validate(men_engage, women_engage, men_pref, women_pref):
-    """Ensure stability of correctness of SMP algorithm."""
+    """Ensure stability and correctness of SMP solution."""
     print('Checking symmetry and stability...')
     # Check symmetry of engagements.
     for man, his_gf in men_engage.items():
