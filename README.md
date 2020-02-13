@@ -8,7 +8,7 @@ The program uses Click to produce the following command line interface. Execute 
 
 Options:
 
-  -i, --input FILE:  Path to input file on which to run SMP algorithm. [required]
+  -i, --input FILE:  Path to input json on which to run SMP algorithm. [required]
 
   -o, --output FILE:  Path to output file in which to print results.
 

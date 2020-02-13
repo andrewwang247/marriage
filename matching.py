@@ -8,7 +8,7 @@ from write import print_results
 @click.command()
 @click.option('--input', '-i', required=True,
               type=click.Path(exists=True, file_okay=True, dir_okay=False),
-              help='Path to input file on which to run SMP algorithm.')
+              help='Path to input json on which to run SMP algorithm.')
 @click.option('--output', '-o', required=False,
               type=click.Path(exists=False, file_okay=True, dir_okay=False),
               help='Path to output file in which to print results.')
