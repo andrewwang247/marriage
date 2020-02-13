@@ -1,16 +1,14 @@
 # Matching
 
-Python implementations for the Stable Marriage Problem (SMP) and the Stable Roommates Problem (SRP).
+Python implementations for the Stable Marriage Problem (SMP) using the Gale-Shapley algorithm.
 
 ## Usage
 
-Execute with `python3 matching.py` [OPTIONS]
+The program uses Click to produce the following command line interface. Execute with `python3 matching.py` [OPTIONS]
 
 Options:
 
-  -a, --algorithm TEXT:  Choose SMP or SRP algorithm.  [required]
-
-  -i, --input FILE:  Path to input file on which to run algorithm. [required]
+  -i, --input FILE:  Path to input file on which to run SMP algorithm. [required]
 
   -o, --output FILE:  Path to output file in which to print results.
 
@@ -20,11 +18,7 @@ If no output file is provided, the program simply prints to the command line.
 
 ## Algorithms
 
-See <https://en.wikipedia.org/wiki/Stable_marriage_problem> for the SMP problem. The Gale-Shapley algorithm for SMP runs in O(n^2) time for two groups of n.
-
-See <https://en.wikipedia.org/wiki/Stable_roommates_problem> for the SRP problem. The Irving algorithm for SRP also runs in O(n^2) time for a single group of n.
-
-After execution, the program checks its solution to ensure correctness.
+See <https://en.wikipedia.org/wiki/Stable_marriage_problem> for the SMP problem. The Gale-Shapley algorithm for SMP runs in O(n^2) time for two groups of n. After execution, the program checks its solution to ensure correctness.
 
 ## Files
 
@@ -32,12 +26,9 @@ The program is split into logical chunks.
 
 - `matching.py` is the highest level layer that interacts delegates computations.
 - `read_validate.py` reads json input and ensures that input is valid.
-- `marriage.py` contains the Gale-Shapley algorithm.
-- `roommate.py` contains the Irving algorithm.
+- `marriage.py` contains the core of the Gale-Shapley algorithm.
 - `write.py` writes solutions to the command line or an output file.
 
 ## Testing
 
-All static testing material is contained in the `Test` directory. The scripts `smp_generator.py` and `srp_generator.py` use `Test/female-names.txt` and `Test/male-names.txt` to generate valid json for SMP and SRP respectively.
-
-These randomly generated json files are written to `Test/large_smp.json` and `Test/large_srp.json`. Smaller, more human-friendly test cases are availabe as `Test/small_smp.json` and `Test/small_srp.json`.
+All static testing material is contained in the `Test` directory. The script `generator.py` uses `Test/female-names.txt` and `Test/male-names.txt` to generate valid json input for SMP, which it places in `Test/large_smp.json`. Note that `Test/small_smp.json` is also available as a more human-friendly test case.

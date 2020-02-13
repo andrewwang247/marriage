@@ -9,7 +9,7 @@ def sort_two_dict(dict_1, dict_2):
     return sorted_1, sorted_2
 
 
-def print_smp_results(men_engage, women_engage, output):
+def print_results(men_engage, women_engage, output):
     """Write smp results to output or command line if None."""
     male_engage, female_engage = sort_two_dict(men_engage, women_engage)
     if output is None:
