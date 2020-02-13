@@ -6,6 +6,7 @@ from copy import deepcopy
 
 def get_names():
     """Shuffle names in files."""
+    print('Reading and shuffling name lists...')
     with open('Test/male-names.txt', 'r') as fin:
         male_names = [line.rstrip() for line in fin]
     with open('Test/female-names.txt', 'r') as fin:
@@ -17,6 +18,7 @@ def get_names():
 
 def construct_pref(men, women):
     """Construct preferences from two lists."""
+    print('Constructing preferences...')
     male_pref = {}
     for man in men:
         my_pref = deepcopy(women)
@@ -41,6 +43,7 @@ def main():
     assert len(males) == len(females)
 
     preferences = construct_pref(males, females)
+    print('Writing json to file...')
     with open('Test/large_smp.json', 'w') as fin:
         json.dump(preferences, fin, indent=4)
 
