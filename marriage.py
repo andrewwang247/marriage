@@ -1,5 +1,4 @@
 """Implementation of Gale-Shapley algorithm."""
-from copy import deepcopy
 
 
 def smp_converge(men_engage, women_engage):
@@ -63,8 +62,8 @@ def compute_smp(men_pref, women_pref, check=True):
     """
     print('Computing stable marriages...')
 
-    # We do not wish to modify the original preference dictionaries.
-    male_pref = deepcopy(men_pref)
+    # Hold onto the index each man is at.
+    man_track = [0] * len(women_pref)
 
     # Initially, nobody is engaged to anybody else.
     men_engage = {man: None for man in men_pref.keys()}
@@ -73,12 +72,15 @@ def compute_smp(men_pref, women_pref, check=True):
     # Iterate until convergence
     while smp_converge(men_engage, women_engage):
         # Each unengaged man proposes to the woman he prefers most.
-        for man in male_pref:
+        for index, man in enumerate(men_pref):
             # If this man is already engaged, move along.
             if men_engage[man] is not None:
                 continue
-            # Get this man's most preferred woman and pop from list.
-            mi_amor = male_pref[man].pop(0)
+
+            # Get this man's most preferred woman and increment tracker.
+            mi_amor = men_pref[man][man_track[index]]
+            man_track[index] += 1
+
             # Propose to her and make relevant state changes.
             propose(man, mi_amor, women_pref, men_engage, women_engage)
 
