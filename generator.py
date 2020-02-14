@@ -1,5 +1,5 @@
 """Automated test generator for Stable Marriage problem."""
-import json
+from json import dump
 from random import shuffle
 from copy import deepcopy
 
@@ -45,7 +45,7 @@ def main():
     preferences = construct_pref(males, females)
     print('Writing json to file...')
     with open('Test/large_smp.json', 'w') as fin:
-        json.dump(preferences, fin, indent=4)
+        dump(preferences, fin, indent=4)
 
 
 if __name__ == '__main__':
