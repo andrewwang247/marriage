@@ -1,4 +1,8 @@
-"""Automated test generator for Stable Marriage problem."""
+"""
+Automated test generator for Stable Marriage problem.
+
+Copyright 2020. Siwei Wang.
+"""
 from json import dump
 from random import shuffle
 from copy import deepcopy

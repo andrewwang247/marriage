@@ -1,4 +1,9 @@
-"""Stable Marriage Problem solution using Gale-Shapley."""
+"""
+Stable Marriage Problem solution using Gale-Shapley.
+
+Copyright 2020. Siwei Wang.
+"""
+# pylint: disable=no-value-for-parameter
 import click
 from read_validate import get_smp
 from marriage import compute_smp

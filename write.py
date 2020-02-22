@@ -1,4 +1,8 @@
-"""Writing of results to a command line or file."""
+"""
+Writing of results to a command line or file.
+
+Copyright 2020. Siwei Wang.
+"""
 
 
 def sort_two_dict(dict_1, dict_2):

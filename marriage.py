@@ -1,4 +1,8 @@
-"""Implementation of Gale-Shapley algorithm."""
+"""
+Implementation of Gale-Shapley algorithm.
+
+Copyright 2020. Siwei Wang.
+"""
 
 
 def smp_converge(men_engage, women_engage):

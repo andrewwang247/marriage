@@ -1,4 +1,8 @@
-"""Utilities to read and validate input for matching."""
+"""
+Utilities to read and validate input for matching.
+
+Copyright 2020. Siwei Wang.
+"""
 from os import path
 from json import load
 
