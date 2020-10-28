@@ -3,32 +3,30 @@ Writing of results to a command line or file.
 
 Copyright 2020. Siwei Wang.
 """
+from typing import Dict, Union
 
 
-def sort_two_dict(dict_1, dict_2):
-    """Return two dictionary that are sorted by key."""
-    print('Sorting names in alphabetical order...')
-    sorted_1 = {k: dict_1[k] for k in sorted(dict_1.keys())}
-    sorted_2 = {k: dict_2[k] for k in sorted(dict_2.keys())}
-    return sorted_1, sorted_2
-
-
-def print_results(men_engage, women_engage, output):
+def print_results(men_engage: Dict[str, Union[str, None]],
+                  women_engage: Dict[str, Union[str, None]],
+                  output: Union[str, None]):
     """Write smp results to output or command line if None."""
-    male_engage, female_engage = sort_two_dict(men_engage, women_engage)
+    print('Sorting names in alphabetical order...')
+    sorted_male = {k: men_engage[k] for k in sorted(men_engage.keys())}
+    sorted_women = {k: women_engage[k] for k in sorted(women_engage.keys())}
     if output is None:
         print('\nMAN --> WOMAN')
-        for man, his_gf in male_engage.items():
-            print('{} --> {}'.format(man, his_gf))
+        for man, his_gf in sorted_male.items():
+            print(f'\t{man} --> {his_gf}')
         print('\nWOMAN --> MAN')
-        for woman, her_bf in female_engage.items():
-            print('{} --> {}'.format(woman, her_bf))
+        for woman, her_bf in sorted_women.items():
+            print(f'\t{woman} --> {her_bf}')
     else:
-        print('Writing solution to {}...'.format(output))
+        assert isinstance(output, str)
+        print(f'Writing solution to {output}...')
         with open(output, 'w') as fout:
             fout.write('MAN --> WOMAN\n')
-            for man, his_gf in male_engage.items():
-                fout.write('{} --> {}\n'.format(man, his_gf))
+            for man, his_gf in sorted_male.items():
+                fout.write(f'\t{man} --> {his_gf}\n')
             fout.write('\nWOMAN --> MAN\n')
-            for woman, her_bf in female_engage.items():
-                fout.write('{} --> {}\n'.format(woman, her_bf))
+            for woman, her_bf in sorted_women.items():
+                fout.write(f'\t{woman} --> {her_bf}\n')

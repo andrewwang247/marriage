@@ -6,21 +6,19 @@ Copyright 2020. Siwei Wang.
 from json import dump
 from random import shuffle
 from copy import deepcopy
+from typing import List, Dict
 
 
-def get_names():
-    """Shuffle names in files."""
-    print('Reading and shuffling name lists...')
-    with open('Test/male-names.txt', 'r') as fin:
-        male_names = [line.rstrip() for line in fin]
-    with open('Test/female-names.txt', 'r') as fin:
-        female_names = [line.rstrip() for line in fin]
-    shuffle(male_names)
-    shuffle(female_names)
-    return male_names, female_names
+def read_names(name_file: str) -> List[str]:
+    """Read names listed in name file."""
+    with open(name_file) as fin:
+        names: List[str] = [line.rstrip() for line in fin]
+    assert len(names) == len(set(names))
+    return names
 
 
-def construct_pref(men, women):
+def construct_pref(men: List[str], women: List[str]) \
+        -> Dict[str, Dict[str, List[str]]]:
     """Construct preferences from two lists."""
     print('Constructing preferences...')
     male_pref = {}
@@ -43,13 +41,15 @@ def construct_pref(men, women):
 
 def main():
     """Generate an automated test case."""
-    males, females = get_names()
+    print('Reading and shuffling names...')
+    males = read_names('Test/male-names.txt')
+    females = read_names('Test/female-names.txt')
     assert len(males) == len(females)
 
     preferences = construct_pref(males, females)
     print('Writing json to file...')
     with open('Test/large_smp.json', 'w') as fin:
-        dump(preferences, fin, indent=4)
+        dump(preferences, fin, indent=2)
 
 
 if __name__ == '__main__':

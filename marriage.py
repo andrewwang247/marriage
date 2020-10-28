@@ -3,14 +3,20 @@ Implementation of Gale-Shapley algorithm.
 
 Copyright 2020. Siwei Wang.
 """
+from typing import List, Dict, Union, Tuple
 
 
-def smp_converge(men_engage, women_engage):
+def smp_converge(men_engage: Dict[str, Union[str, None]],
+                 women_engage: Dict[str, Union[str, None]]) -> bool:
     """Return True if there exists a couple that are unengaged."""
     return None in men_engage.values() or None in women_engage.values()
 
 
-def propose(man, woman, women_pref, men_engage, women_engage):
+def propose(man: str,
+            woman: str,
+            women_pref: Dict[str, List[str]],
+            men_engage: Dict[str, Union[str, None]],
+            women_engage: Dict[str, Union[str, None]]):
     """Determine whether a proposal man to woman will be successful."""
     if women_engage[woman] is None:
         # If she has nobody, accept him.
@@ -20,7 +26,7 @@ def propose(man, woman, women_pref, men_engage, women_engage):
 
     # A second proposal should not occur.
     current_dude = women_engage[woman]
-    assert current_dude != man
+    assert isinstance(current_dude, str) and current_dude != man
 
     # If this is an upgrade for her, accept him.
     if women_pref[woman].index(man) < women_pref[woman].index(current_dude):
@@ -31,34 +37,42 @@ def propose(man, woman, women_pref, men_engage, women_engage):
         men_engage[current_dude] = None
 
 
-def match_validate(men_engage, women_engage, men_pref, women_pref):
+def match_validate(men_engage: Dict[str, Union[str, None]],
+                   women_engage: Dict[str, Union[str, None]],
+                   men_pref: Dict[str, List[str]],
+                   women_pref: Dict[str, List[str]]):
     """Ensure stability and correctness of SMP solution."""
     print('Checking symmetry and stability...')
     # Check symmetry of engagements.
     for man, his_gf in men_engage.items():
-        assert women_engage[his_gf] == man
+        assert isinstance(his_gf, str) and women_engage[his_gf] == man
     for woman, her_bf in women_engage.items():
-        assert men_engage[her_bf] == woman
+        assert isinstance(her_bf, str) and men_engage[her_bf] == woman
 
     # Check stability.
     for man, his_pref in men_pref.items():
         current_woman = men_engage[man]
+        assert isinstance(current_woman, str)
         # Does there exists a woman who he prefers more?
-        for i in range(0, his_pref.index(current_woman)):
+        for i in range(his_pref.index(current_woman)):
             # If so, does she also prefer HIM more?
             that_woman = his_pref[i]
             her_man = women_engage[that_woman]
+            assert isinstance(her_man, str)
             her_happiness = women_pref[that_woman].index(her_man)
             her_potential = women_pref[that_woman].index(man)
             # If this is true, she'd be happier with man that her current dude.
             if her_potential < her_happiness:
-                print('Man {} is with woman {}. Woman {} is with man {}.'
-                      .format(man, current_woman, that_woman, her_man))
+                print(f'Man {man} is with woman {current_woman}.')
+                print(f'Woman {that_woman} is with man {her_man}.')
                 print('They\'d rather be with each other.')
                 raise Exception('Matching is unstable.')
 
 
-def compute_smp(men_pref, women_pref, check=True):
+def compute_smp(men_pref: Dict[str, List[str]],
+                women_pref: Dict[str, List[str]],
+                check: bool = True) -> Tuple[Dict[str, Union[str, None]],
+                                             Dict[str, Union[str, None]]]:
     """
     Compute a stable marriage on two preference lists.
 
@@ -67,11 +81,13 @@ def compute_smp(men_pref, women_pref, check=True):
     print('Computing stable marriages...')
 
     # Hold onto the index each man is at.
-    man_track = [0] * len(women_pref)
+    man_track: List[int] = [0] * len(women_pref)
 
     # Initially, nobody is engaged to anybody else.
-    men_engage = {man: None for man in men_pref.keys()}
-    women_engage = {woman: None for woman in women_pref.keys()}
+    men_engage: Dict[str, Union[str, None]] = {
+        man: None for man in men_pref.keys()}
+    women_engage: Dict[str, Union[str, None]] = {
+        woman: None for woman in women_pref.keys()}
 
     # Iterate until convergence
     while smp_converge(men_engage, women_engage):
