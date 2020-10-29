@@ -3,11 +3,12 @@ Implementation of Gale-Shapley algorithm.
 
 Copyright 2020. Siwei Wang.
 """
-from typing import List, Dict, Union, Tuple
+from timeit import default_timer as timer
+from typing import Dict, List, Optional, Tuple
 
 
-def smp_converge(men_engage: Dict[str, Union[str, None]],
-                 women_engage: Dict[str, Union[str, None]]) -> bool:
+def smp_converge(men_engage: Dict[str, Optional[str]],
+                 women_engage: Dict[str, Optional[str]]) -> bool:
     """Return True if there exists a couple that are unengaged."""
     return None in men_engage.values() or None in women_engage.values()
 
@@ -15,11 +16,11 @@ def smp_converge(men_engage: Dict[str, Union[str, None]],
 def propose(man: str,
             woman: str,
             women_pref: Dict[str, List[str]],
-            men_engage: Dict[str, Union[str, None]],
-            women_engage: Dict[str, Union[str, None]]):
+            men_engage: Dict[str, Optional[str]],
+            women_engage: Dict[str, Optional[str]]):
     """Determine whether a proposal man to woman will be successful."""
+    # If she has nobody, accept him.
     if women_engage[woman] is None:
-        # If she has nobody, accept him.
         men_engage[man] = woman
         women_engage[woman] = man
         return
@@ -30,15 +31,14 @@ def propose(man: str,
 
     # If this is an upgrade for her, accept him.
     if women_pref[woman].index(man) < women_pref[woman].index(current_dude):
-        # If she has nobody, accept him.
         men_engage[man] = woman
         women_engage[woman] = man
         # Now the other dude has nobody. Rip.
         men_engage[current_dude] = None
 
 
-def match_validate(men_engage: Dict[str, Union[str, None]],
-                   women_engage: Dict[str, Union[str, None]],
+def match_validate(men_engage: Dict[str, Optional[str]],
+                   women_engage: Dict[str, Optional[str]],
                    men_pref: Dict[str, List[str]],
                    women_pref: Dict[str, List[str]]):
     """Ensure stability and correctness of SMP solution."""
@@ -71,8 +71,8 @@ def match_validate(men_engage: Dict[str, Union[str, None]],
 
 def compute_smp(men_pref: Dict[str, List[str]],
                 women_pref: Dict[str, List[str]],
-                check: bool = True) -> Tuple[Dict[str, Union[str, None]],
-                                             Dict[str, Union[str, None]]]:
+                check: bool = True) -> Tuple[Dict[str, Optional[str]],
+                                             Dict[str, Optional[str]]]:
     """
     Compute a stable marriage on two preference lists.
 
@@ -84,11 +84,12 @@ def compute_smp(men_pref: Dict[str, List[str]],
     man_track: List[int] = [0] * len(women_pref)
 
     # Initially, nobody is engaged to anybody else.
-    men_engage: Dict[str, Union[str, None]] = {
+    men_engage: Dict[str, Optional[str]] = {
         man: None for man in men_pref.keys()}
-    women_engage: Dict[str, Union[str, None]] = {
+    women_engage: Dict[str, Optional[str]] = {
         woman: None for woman in women_pref.keys()}
 
+    begin = timer()
     # Iterate until convergence
     while smp_converge(men_engage, women_engage):
         # Each unengaged man proposes to the woman he prefers most.
@@ -103,8 +104,10 @@ def compute_smp(men_pref: Dict[str, List[str]],
 
             # Propose to her and make relevant state changes.
             propose(man, mi_amor, women_pref, men_engage, women_engage)
-
+    end = timer()
     # We should now have a stable matching.
     if check:
         match_validate(men_engage, women_engage, men_pref, women_pref)
+
+    print(f'Stable marriage solution took {round(end - begin, 4)} seconds.')
     return men_engage, women_engage

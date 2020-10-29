@@ -5,7 +5,7 @@ Copyright 2020. Siwei Wang.
 """
 from os import path
 from json import load
-from typing import Tuple, Dict, List, Set
+from typing import Dict, List, Set, Tuple
 
 
 def read_smp(filename: str) -> Tuple[Dict[str, List[str]],

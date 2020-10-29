@@ -3,14 +3,13 @@ Writing of results to a command line or file.
 
 Copyright 2020. Siwei Wang.
 """
-from typing import Dict, Union
+from typing import Dict, Optional
 
 
-def print_results(men_engage: Dict[str, Union[str, None]],
-                  women_engage: Dict[str, Union[str, None]],
-                  output: Union[str, None]):
+def print_results(men_engage: Dict[str, Optional[str]],
+                  women_engage: Dict[str, Optional[str]],
+                  output: Optional[str]):
     """Write smp results to output or command line if None."""
-    print('Sorting names in alphabetical order...')
     sorted_male = {k: men_engage[k] for k in sorted(men_engage.keys())}
     sorted_women = {k: women_engage[k] for k in sorted(women_engage.keys())}
     if output is None:
