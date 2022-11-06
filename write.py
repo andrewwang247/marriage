@@ -4,6 +4,8 @@ Writing of results to a command line or file.
 Copyright 2020. Siwei Wang.
 """
 from typing import Dict, Optional
+from pprint import pprint
+from json import dump
 
 
 def print_results(men_engage: Dict[str, Optional[str]],
@@ -11,21 +13,10 @@ def print_results(men_engage: Dict[str, Optional[str]],
                   output: Optional[str]):
     """Write smp results to output or command line if None."""
     sorted_male = {k: men_engage[k] for k in sorted(men_engage.keys())}
-    sorted_women = {k: women_engage[k] for k in sorted(women_engage.keys())}
+    sorted_female = {k: women_engage[k] for k in sorted(women_engage.keys())}
+    out_json = {'MAN_TO_WOMAN': sorted_male, 'WOMAN_TO_MAN': sorted_female}
     if output is None:
-        print('\nMAN --> WOMAN')
-        for man, his_gf in sorted_male.items():
-            print(f'\t{man} --> {his_gf}')
-        print('\nWOMAN --> MAN')
-        for woman, her_bf in sorted_women.items():
-            print(f'\t{woman} --> {her_bf}')
+        pprint(out_json)
     else:
-        assert isinstance(output, str)
-        print(f'Writing solution to {output}...')
-        with open(output, 'w') as fout:
-            fout.write('MAN --> WOMAN\n')
-            for man, his_gf in sorted_male.items():
-                fout.write(f'\t{man} --> {his_gf}\n')
-            fout.write('\nWOMAN --> MAN\n')
-            for woman, her_bf in sorted_women.items():
-                fout.write(f'\t{woman} --> {her_bf}\n')
+        with open(output, 'w', encoding='UTF-8') as fout:
+            dump(out_json, fout, indent=2)

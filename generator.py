@@ -11,7 +11,7 @@ from typing import List, Dict
 
 def read_names(name_file: str) -> List[str]:
     """Read names listed in name file."""
-    with open(name_file) as fin:
+    with open(name_file, encoding='UTF-8') as fin:
         names: List[str] = [line.rstrip() for line in fin]
     assert len(names) == len(set(names))
     return names
@@ -48,7 +48,7 @@ def main():
 
     preferences = construct_pref(males, females)
     print('Writing json to file...')
-    with open('Test/large_smp.json', 'w') as fin:
+    with open('Test/large_smp.json', 'w', encoding='UTF-8') as fin:
         dump(preferences, fin, indent=2)
 
 

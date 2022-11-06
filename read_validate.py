@@ -15,7 +15,7 @@ def read_smp(filename: str) -> Tuple[Dict[str, List[str]],
     if path.splitext(filename)[1] != '.json':
         raise ValueError('Input data must be in json file.')
     # Open file and return men and women preferences separately.
-    with open(filename) as fin:
+    with open(filename, encoding='UTF-8') as fin:
         preferences = load(fin)
     men_pref: Dict[str, List[str]] = preferences['men']
     women_pref: Dict[str, List[str]] = preferences['women']

@@ -76,7 +76,7 @@ def compute_smp(men_pref: Dict[str, List[str]],
     """
     Compute a stable marriage on two preference lists.
 
-    This function uses the Gale–Shapley algorithm.
+    This function uses the Gale-Shapley algorithm.
     """
     print('Computing stable marriages...')
 
