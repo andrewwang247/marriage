@@ -5,7 +5,6 @@ Python implementations for the Stable Marriage Problem (SMP) using the Gale-Shap
 ## Usage
 
 The program uses Click to produce the following command line interface.
-
 ```text
 Usage: matching.py [OPTIONS]
 
@@ -18,8 +17,50 @@ Options:
   -o, --output FILE    Path to output file in which to print results.
   --help               Show this message and exit.
 ```
-
 If no output file is provided, the program simply prints to the command line.
+
+## Format
+
+The input must be a JSON object structured as follows:
+```json
+{
+  "men": {
+    "man_1": [
+      "woman_1",
+      "woman_2",
+      "woman_3"
+    ],
+    "man_2": [
+      "woman_3",
+      "woman_2",
+      "woman_1"
+    ],
+    "man_3": [
+      "woman_1",
+      "woman_3",
+      "woman_2"
+    ]
+  },
+  "women": {
+    "woman_1": [
+      "man_2",
+      "man_1",
+      "man_3"
+    ],
+    "woman_2": [
+      "man_3",
+      "man_2",
+      "man_1"
+    ],
+    "woman_3": [
+      "man_3",
+      "man_1",
+      "man_2"
+    ]
+  }
+}
+```
+where each list is in decreasing order of that individual's preference. See `test/small_smp.json` for a real example.
 
 ## Algorithms
 
