@@ -61,14 +61,9 @@ def match_validate(men_engage: Dict[str, Optional[str]],
             assert isinstance(her_man, str)
             her_happiness = women_pref[that_woman].index(her_man)
             her_potential = women_pref[that_woman].index(man)
-            # If this is true, she'd be happier with man that her current dude.
+            # Check if she'd be happier with him than her current partner.
             assert her_potential >= her_happiness, \
-                f'''
-                Man {man} is with {current_woman}.
-                Woman {that_woman} is with {her_man}.
-                They\'d rather be with each other.
-                Matching is unstable.
-                '''
+                f'Instable {man} + {current_woman} vs {that_woman} + {her_man}'
 
 
 def compute_smp(men_pref: Dict[str, List[str]],
