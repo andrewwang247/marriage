@@ -1,7 +1,7 @@
 """
 Automated test generator for Stable Marriage problem.
 
-Copyright 2020. Siwei Wang.
+Copyright 2026. Andrew Wang.
 """
 from json import dump
 from random import shuffle
@@ -42,13 +42,13 @@ def construct_pref(men: List[str], women: List[str]) \
 def main():
     """Generate an automated test case."""
     print('Reading and shuffling names...')
-    males = read_names('Test/male-names.txt')
-    females = read_names('Test/female-names.txt')
+    males = read_names('tst/male-names.txt')
+    females = read_names('tst/female-names.txt')
     assert len(males) == len(females)
 
     preferences = construct_pref(males, females)
     print('Writing json to file...')
-    with open('Test/large_smp.json', 'w', encoding='UTF-8') as fin:
+    with open('tst/large_smp.json', 'w', encoding='UTF-8') as fin:
         dump(preferences, fin, indent=2)
 
 

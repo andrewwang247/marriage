@@ -1,7 +1,7 @@
 """
 Utilities to read and validate input for matching.
 
-Copyright 2020. Siwei Wang.
+Copyright 2026. Andrew Wang.
 """
 from os import path
 from json import load

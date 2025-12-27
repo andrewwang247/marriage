@@ -1,7 +1,7 @@
 """
 Stable Marriage Problem solution using Gale-Shapley.
 
-Copyright 2020. Siwei Wang.
+Copyright 2026. Andrew Wang.
 """
 # pylint: disable=no-value-for-parameter
 from typing import Optional

@@ -1,7 +1,7 @@
 """
 Implementation of Gale-Shapley algorithm.
 
-Copyright 2020. Siwei Wang.
+Copyright 2026. Andrew Wang.
 """
 from timeit import default_timer as timer
 from typing import Dict, List, Optional, Tuple
@@ -62,11 +62,13 @@ def match_validate(men_engage: Dict[str, Optional[str]],
             her_happiness = women_pref[that_woman].index(her_man)
             her_potential = women_pref[that_woman].index(man)
             # If this is true, she'd be happier with man that her current dude.
-            if her_potential < her_happiness:
-                print(f'Man {man} is with woman {current_woman}.')
-                print(f'Woman {that_woman} is with man {her_man}.')
-                print('They\'d rather be with each other.')
-                raise Exception('Matching is unstable.')
+            assert her_potential >= her_happiness, \
+                f'''
+                Man {man} is with {current_woman}.
+                Woman {that_woman} is with {her_man}.
+                They\'d rather be with each other.
+                Matching is unstable.
+                '''
 
 
 def compute_smp(men_pref: Dict[str, List[str]],

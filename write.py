@@ -1,7 +1,7 @@
 """
 Writing of results to a command line or file.
 
-Copyright 2020. Siwei Wang.
+Copyright 2026. Andrew Wang.
 """
 from typing import Dict, Optional
 from pprint import pprint
