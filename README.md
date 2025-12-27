@@ -23,7 +23,7 @@ If no output file is provided, the program simply prints to the command line.
 
 ## Algorithms
 
-See <https://en.wikipedia.org/wiki/Stable_marriage_problem> for the SMP problem. The Gale-Shapley algorithm for SMP runs in O(n^2) time for two groups of n. After execution, the program checks its solution to ensure correctness.
+See <https://en.wikipedia.org/wiki/Stable_marriage_problem> for the SMP problem. The Gale-Shapley algorithm for SMP runs in $O(n^2)$ time for two groups of $n$ individuals. After execution, the program checks its solution to ensure correctness.
 
 ## Files
 
