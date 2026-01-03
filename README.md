@@ -73,8 +73,7 @@ The program is split into logical chunks.
 - `matching.py` is the highest level layer that interfaces with the user and delegates computations.
 - `read_validate.py` reads json input and ensures that input is valid.
 - `marriage.py` contains the core of the Gale-Shapley algorithm.
-- `write.py` writes solutions to the command line or an output file.
 
 ## Testing
 
-All static testing material is contained in the `tst` directory. The script `generator.py` (run without arguments) uses `tst/female-names.txt` and `tst/male-names.txt` to generate valid json input for SMP, which it places in `tst/large_smp.json`. Note that `tst/small_smp.json` is also available as a more human-friendly test case.
+All static testing material is contained in the `tst` directory. The script `generator.py` (run without arguments) uses `tst/female-names.txt` and `tst/male-names.txt` to generate valid json input for SMP, which it places in `tst/large_smp.json`. Note that `tst/small_smp.json` is also available as a more human-friendly test case. Run `pytest` to validate solutions for all `tst/*_smp.json` files.

@@ -42,11 +42,12 @@ def construct_pref(men: List[str], women: List[str]) \
 def main():
     """Generate an automated test case."""
     print('Reading and shuffling names...')
-    males = read_names('tst/male-names.txt')
-    females = read_names('tst/female-names.txt')
-    assert len(males) == len(females)
+    men = read_names('tst/male-names.txt')
+    women = read_names('tst/female-names.txt')
+    assert len(men) == len(women), \
+        'Number of men and women must match.'
 
-    preferences = construct_pref(males, females)
+    preferences = construct_pref(men, women)
     print('Writing json to file...')
     with open('tst/large_smp.json', 'w', encoding='UTF-8') as fin:
         dump(preferences, fin, indent=2)

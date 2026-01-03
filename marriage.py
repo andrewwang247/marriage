@@ -68,8 +68,8 @@ def match_validate(men_engage: Dict[str, Optional[str]],
 
 def compute_smp(men_pref: Dict[str, List[str]],
                 women_pref: Dict[str, List[str]],
-                check: bool = True) -> Tuple[Dict[str, Optional[str]],
-                                             Dict[str, Optional[str]]]:
+                check: bool) -> Tuple[Dict[str, Optional[str]],
+                                      Dict[str, Optional[str]]]:
     """
     Compute a stable marriage on two preference lists.
 
