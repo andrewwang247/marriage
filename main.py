@@ -1,5 +1,5 @@
 """
-Stable Marriage Problem solution using Gale-Shapley.
+Stable Matching Problem solution using Gale-Shapley.
 
 Copyright 2026. Andrew Wang.
 """
@@ -9,7 +9,7 @@ from typing import Dict, Optional
 from json import dumps
 from click import command, option, Path
 from read_validate import get_smp
-from marriage import compute_smp
+from matching import compute_smp
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +25,7 @@ def print_results(men_engage: Dict[str, Optional[str]],
 
 @command()
 @option('--filename', '-f', required=True,
-        type=Path(exists=True, file_okay=True, dir_okay=False),
+        type=Path(exists=True, file_okay=True, dir_okay=False, readable=True),
         help='Path to input json on which to run SMP algorithm.')
 def main(filename: str):
     """Execute smp algorithm on input and print results to output."""

@@ -74,11 +74,11 @@ def compute_smp(men_pref: Dict[str, List[str]],
                 check: bool) -> Tuple[Dict[str, Optional[str]],
                                       Dict[str, Optional[str]]]:
     """
-    Compute a stable marriage on two preference lists.
+    Compute a stable matching on two preference lists.
 
     This function uses the Gale-Shapley algorithm.
     """
-    logger.info('Computing stable marriages...')
+    logger.info('Computing stable matchings...')
 
     # Hold onto the index each man is at.
     man_track: List[int] = [0] * len(women_pref)
@@ -109,5 +109,5 @@ def compute_smp(men_pref: Dict[str, List[str]],
     if check:
         match_validate(men_engage, women_engage, men_pref, women_pref)
 
-    logger.info('Stable marriage solution took %.4f seconds.', end - begin)
+    logger.info('Stable matching solution took %.4f seconds.', end - begin)
     return men_engage, women_engage

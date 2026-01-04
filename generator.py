@@ -1,5 +1,5 @@
 """
-Automated test generator for Stable Marriage problem.
+Automated test generator for Stable Matching problem.
 
 Copyright 2026. Andrew Wang.
 """

@@ -1,6 +1,6 @@
 # Matching
 
-Solver for the [stable marriage problem](https://en.wikipedia.org/wiki/Stable_marriage_problem) (or stable matching problem) using the Gale-Shapley algorithm.
+Solver for the [stable matching problem](https://en.wikipedia.org/wiki/Stable_marriage_problem) using the Gale-Shapley algorithm.
 
 ## Usage
 
@@ -72,7 +72,7 @@ The program is split into logical chunks.
 
 - `main.py` is the highest level layer that interfaces with the user and delegates computations.
 - `read_validate.py` reads json input and ensures that input is valid.
-- `marriage.py` contains the core of the Gale-Shapley algorithm.
+- `matching.py` contains the core of the Gale-Shapley algorithm.
 
 ## Testing
 

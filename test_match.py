@@ -6,7 +6,7 @@ Copyright 2026. Andrew Wang.
 from glob import glob
 from pytest import mark
 from read_validate import get_smp
-from marriage import compute_smp
+from matching import compute_smp
 
 
 @mark.parametrize('filename', glob('tst/*_smp.json'))
