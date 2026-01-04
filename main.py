@@ -11,10 +11,8 @@ from click import command, option, Path
 from read_validate import get_smp
 from matching import compute_smp
 
-logger = logging.getLogger(__name__)
 
-
-def print_results(men_engage: Dict[str, Optional[str]],
+def _print_results(men_engage: Dict[str, Optional[str]],
                   women_engage: Dict[str, Optional[str]]):
     """Write smp results to output or command line if None."""
     sorted_male = {k: men_engage[k] for k in sorted(men_engage.keys())}
@@ -26,14 +24,16 @@ def print_results(men_engage: Dict[str, Optional[str]],
 @command()
 @option('--filename', '-f', required=True,
         type=Path(exists=True, file_okay=True, dir_okay=False, readable=True),
-        help='Path to input json on which to run SMP algorithm.')
-def main(filename: str):
+        help='Path to input JSON.')
+@option('--verbose', '-v', is_flag=True, default=False,
+        help='Set verbosity of solving process. Disable if piping output.')
+def main(filename: str, verbose: bool):
     """Execute smp algorithm on input and print results to output."""
+    logging.basicConfig(level=logging.INFO if verbose else logging.WARN)
     men_pref, women_pref = get_smp(filename)
-    men_engage, women_engage = compute_smp(men_pref, women_pref, check=False)
-    print_results(men_engage, women_engage)
+    men_engage, women_engage = compute_smp(men_pref, women_pref)
+    _print_results(men_engage, women_engage)
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.WARN)
     main()

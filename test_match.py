@@ -13,4 +13,4 @@ from matching import compute_smp
 def test_flow(filename: str):
     """Test network flow on filename."""
     men_pref, women_pref = get_smp(filename)
-    compute_smp(men_pref, women_pref, check=True)
+    compute_smp(men_pref, women_pref)
