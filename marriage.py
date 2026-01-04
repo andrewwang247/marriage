@@ -3,8 +3,11 @@ Implementation of Gale-Shapley algorithm.
 
 Copyright 2026. Andrew Wang.
 """
+import logging
 from timeit import default_timer as timer
 from typing import Dict, List, Optional, Tuple
+
+logger = logging.getLogger(__name__)
 
 
 def smp_converge(men_engage: Dict[str, Optional[str]],
@@ -42,7 +45,7 @@ def match_validate(men_engage: Dict[str, Optional[str]],
                    men_pref: Dict[str, List[str]],
                    women_pref: Dict[str, List[str]]):
     """Ensure stability and correctness of SMP solution."""
-    print('Checking symmetry and stability...')
+    logger.info('Checking symmetry and stability...')
     # Check symmetry of engagements.
     for man, his_gf in men_engage.items():
         assert isinstance(his_gf, str) and women_engage[his_gf] == man
@@ -75,7 +78,7 @@ def compute_smp(men_pref: Dict[str, List[str]],
 
     This function uses the Gale-Shapley algorithm.
     """
-    print('Computing stable marriages...')
+    logger.info('Computing stable marriages...')
 
     # Hold onto the index each man is at.
     man_track: List[int] = [0] * len(women_pref)
@@ -106,5 +109,5 @@ def compute_smp(men_pref: Dict[str, List[str]],
     if check:
         match_validate(men_engage, women_engage, men_pref, women_pref)
 
-    print(f'Stable marriage solution took {round(end - begin, 4)} seconds.')
+    logger.info('Stable marriage solution took %.4f seconds.', end - begin)
     return men_engage, women_engage

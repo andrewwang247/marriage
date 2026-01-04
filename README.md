@@ -1,27 +1,26 @@
 # Matching
 
-Python implementations for the Stable Marriage Problem (SMP) using the Gale-Shapley algorithm.
+Solver for the [stable marriage problem](https://en.wikipedia.org/wiki/Stable_marriage_problem) (or stable matching problem) using the Gale-Shapley algorithm.
 
 ## Usage
 
-The program uses Click to produce the following command line interface.
 ```text
-Usage: matching.py [OPTIONS]
+Usage: main.py [OPTIONS]
 
   Execute smp algorithm on input and print results to output.
 
 Options:
   -f, --filename FILE  Path to input json on which to run SMP algorithm.
                        [required]
-
-  -o, --output FILE    Path to output file in which to print results.
   --help               Show this message and exit.
 ```
-If no output file is provided, the program simply prints to the command line.
+
+The output to stdout is in JSON format and can be redirected into a file if desired.
 
 ## Format
 
 The input must be a JSON object structured as follows:
+
 ```json
 {
   "men": {
@@ -60,17 +59,18 @@ The input must be a JSON object structured as follows:
   }
 }
 ```
+
 where each list is in decreasing order of that individual's preference. See `test/small_smp.json` for a real example.
 
 ## Algorithms
 
-See <https://en.wikipedia.org/wiki/Stable_marriage_problem> for the SMP problem. The Gale-Shapley algorithm for SMP runs in $O(n^2)$ time for two groups of $n$ individuals. After execution, the program checks its solution to ensure correctness.
+The [Gale-Shapley algorithm](https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm) runs in $O(n^2)$ time for two groups of $n$ individuals. After execution, the program checks its solution to ensure correctness.
 
 ## Files
 
 The program is split into logical chunks.
 
-- `matching.py` is the highest level layer that interfaces with the user and delegates computations.
+- `main.py` is the highest level layer that interfaces with the user and delegates computations.
 - `read_validate.py` reads json input and ensures that input is valid.
 - `marriage.py` contains the core of the Gale-Shapley algorithm.
 

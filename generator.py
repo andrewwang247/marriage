@@ -4,9 +4,12 @@ Automated test generator for Stable Marriage problem.
 Copyright 2026. Andrew Wang.
 """
 from json import dump
+import logging
 from random import shuffle
 from copy import deepcopy
 from typing import List, Dict
+
+logger = logging.getLogger(__name__)
 
 
 def read_names(name_file: str) -> List[str]:
@@ -20,7 +23,7 @@ def read_names(name_file: str) -> List[str]:
 def construct_pref(men: List[str], women: List[str]) \
         -> Dict[str, Dict[str, List[str]]]:
     """Construct preferences from two lists."""
-    print('Constructing preferences...')
+    logger.info('Constructing preferences...')
     male_pref = {}
     for man in men:
         my_pref = deepcopy(women)
@@ -41,17 +44,18 @@ def construct_pref(men: List[str], women: List[str]) \
 
 def main():
     """Generate an automated test case."""
-    print('Reading and shuffling names...')
+    logger.info('Reading and shuffling names...')
     men = read_names('tst/male-names.txt')
     women = read_names('tst/female-names.txt')
     assert len(men) == len(women), \
         'Number of men and women must match.'
 
     preferences = construct_pref(men, women)
-    print('Writing json to file...')
+    logger.info('Writing json to file.')
     with open('tst/large_smp.json', 'w', encoding='UTF-8') as fin:
         dump(preferences, fin, indent=2)
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
     main()

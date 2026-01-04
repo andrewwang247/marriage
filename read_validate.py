@@ -3,8 +3,11 @@ Utilities to read and validate input for matching.
 
 Copyright 2026. Andrew Wang.
 """
+import logging
 from json import load
 from typing import Dict, List, Set, Tuple
+
+logger = logging.getLogger(__name__)
 
 
 def _import_smp(filename: str) -> Tuple[Dict[str, List[str]],
@@ -20,14 +23,14 @@ def _import_smp(filename: str) -> Tuple[Dict[str, List[str]],
     assert len(women_pref) > 0, 'Missing data for women'
     assert len(men_pref) == len(
         women_pref), 'Requires equal number of men and women'
-    print(f'Detected {len(men_pref)} individuals of each gender.')
+    logger.info('Detected %d individuals of each gender.', len(men_pref))
     return men_pref, women_pref
 
 
 def _validate_input(men_pref: Dict[str, List[str]],
                     women_pref: Dict[str, List[str]]):
     """Ensure that the input for smp is valid."""
-    print('Validating json input...')
+    logger.info('Validating json input...')
 
     # Check each man's preferences is a permutation of the women.
     women: Set[str] = set(women_pref.keys())
